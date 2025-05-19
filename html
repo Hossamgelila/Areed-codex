@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Product Catalog | Premium Brands, Organic Food & More</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="theme-color" content="#ffffff">
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Browse our complete product catalog featuring premium brands, organic food, beverages, and household items. Filter by price, origin, and availability.">
+  <meta name="keywords" content="organic food, beverages, household products, grocery shopping, premium brands, online catalog">
+  <meta name="robots" content="index, follow">
+  <!-- Open Graph / Social Meta Tags -->
+  <meta property="og:title" content="Product Catalog | Premium Brands, Organic Food & More">
+  <meta property="og:description" content="Browse our complete product catalog featuring premium brands, organic food, and household items.">
+  <meta property="og:image" content="https://cdn.shopify.com/s/files/1/0710/3918/9279/files/catalog-preview.jpg">
+  <meta property="og:url" content="https://areed-8590.myshopify.com/catalog">
+  <meta property="og:type" content="website">
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://areed-8590.myshopify.com/catalog">
+  <!-- Preconnect to external domains -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://cdn.shopify.com">
+  <link rel="dns-prefetch" href="https://cdn.shopify.com">
+  <!-- Stylesheets -->
+  <link rel="preload" href="styles.css" as="style">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <!-- PWA manifest -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Product Catalog">
+  <!-- Structured Data: Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Catalog",
+      "item": "https://areed-8590.myshopify.com/catalog"
+    }]
+  }
+  </script>
+  <!-- Last updated -->
+  <meta name="last-updated" content="2025-05-05 04:56:37">
+  <!-- Additional CSS for compatibility fixes -->
+  <style>
+    .skip-link {
+      position: absolute;
+      left: -999px;
+      top: 10px;
+      background: #fff;
+      color: #009c4f;
+      padding: 8px 16px;
+      z-index: 2000;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: left 0.2s;
+    }
+    .skip-link:focus {
+      left: 10px;
+      outline: 2.5px solid #2b9b37;
+    }
+    /* ... (rest of your inline CSS unchanged) ... */
+  </style>
+</head>
+<body>
+  <!-- Skip to main content link for accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- Header -->
+  <header>
+    <h1 id="page-title">Product Catalog</h1>
+    <div class="last-updated">Last updated: 2025-05-05 04:56:37 by Hossamgelil</div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="catalog-container" role="main" id="main-content">
+    <!-- Breadcrumb -->
+    <nav aria-label="Breadcrumb" class="breadcrumb">
+      <span id="breadcrumb-current" aria-current="page" aria-label="Current selection: All Products">All Products</span>
+    </nav>
+
+    <div class="catalog-layout">
+      <!-- Sidebar (Left) -->
+      <aside class="filter-sidebar" id="filterSidebar" aria-label="Product Filters">
+        <div class="filter-header">
+          <h2>Filters</h2>
+          <button id="clearFiltersBtn" class="clear-btn" aria-label="Clear all filters">Clear All</button>
+        </div>
+        <button id="mobileFilterClose" aria-label="Close filters" class="mobile-only">&times;</button>
+        <!-- Brand Filter -->
+        <fieldset class="filter-card filter-section">
+          <legend><b>Brand</b></legend>
+          <input type="text" class="filter-search" placeholder="Search brand..." autocomplete="off" aria-label="Search brands">
+          <div class="filter-list" id="brand-list" role="group" aria-label="Brand filters">
+            <!-- Brands will be populated dynamically by JavaScript -->
+          </div>
+        </fieldset>
+        <!-- Origin Filter -->
+        <fieldset class="filter-card filter-section">
+          <legend><b>Origin</b></legend>
+          <input type="text" class="filter-search" placeholder="Search origin..." autocomplete="off" aria-label="Search origins">
+          <div class="filter-list" id="origin-list" role="group" aria-label="Origin filters"></div>
+        </fieldset>
+        <!-- Price Filter -->
+        <fieldset class="filter-card filter-section">
+          <legend><b>Price</b></legend>
+          <div style="display:flex;gap:8px;">
+            <input type="number" id="minPrice" min="0" value="0" style="width:50%;" aria-label="Minimum price">
+            <input type="number" id="maxPrice" min="0" value="1000" style="width:50%;" aria-label="Maximum price">
+          </div>
+          <span id="priceError" class="hint error" style="display:none;margin-top:4px;color:var(--danger);font-size:0.9em;"></span>
+        </fieldset>
+        <!-- Availability Filter -->
+        <fieldset class="filter-card filter-section">
+          <legend><b>Availability</b></legend>
+          <div class="filter-list" id="availability-list" role="group" aria-label="Availability filters"></div>
+        </fieldset>
+        <!-- Features Filter -->
+        <fieldset class="filter-card filter-section">
+          <legend><b>Features</b></legend>
+          <div class="filter-list" id="new-feature-list" role="group" aria-label="Features filters"></div>
+        </fieldset>
+        <!-- IndexedDB fallback notice -->
+        <div class="idb-fallback-notice" id="idbFallbackNotice">
+          Offline cart storage not available on this browser. Your cart will only persist during this session.
+        </div>
+      </aside>
+
+      <!-- Main Content Area (Right) -->
+      <section class="products-container" aria-label="Products">
+        <!-- Brand Banner -->
+        <div id="brand-banner" style="width: 100%; text-align: center; margin-bottom: 10px;">
+          <!-- Brand banner image will appear here -->
+        </div>
+        <!-- Mobile filter toggle button -->
+        <button id="mobileFilterToggle" aria-label="Show filters">&#9776;</button>
+        <!-- Category Bar (Horizontal, Above Products Grid) -->
+        <div class="category-bar" id="category-bar" role="tablist" aria-label="Product categories">
+          <!-- Category bar items will be rendered by JS with role="tab" and aria-selected -->
+        </div>
+        <!-- Search & Sort Controls -->
+        <div class="products-header">
+          <div class="search-section">
+            <div class="search-wrapper">
+              <input id="productSearch" type="text" placeholder="Search products..." autocomplete="off" aria-label="Search products">
+              <div class="search-suggestions" role="listbox" aria-label="Search suggestions"></div>
+              <div class="search-modes" role="radiogroup" aria-label="Search type">
+                <button class="mode-btn active" data-mode="all" role="radio" aria-checked="true" tabindex="0">All</button>
+                <button class="mode-btn" data-mode="prod" role="radio" aria-checked="false" tabindex="0">Product</button>
+                <button class="mode-btn" data-mode="brand" role="radio" aria-checked="false" tabindex="0">Brand</button>
+              </div>
+            </div>
+            <div class="sort-wrapper">
+              <button class="sort-btn" aria-haspopup="listbox" aria-expanded="false">
+                <span>Price: High → Low</span>
+                <i class="fas fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <div class="sort-dropdown" role="listbox" aria-label="Sort options">
+                <button class="sort-option" role="option" aria-selected="false" tabindex="0">Price: Low → High</button>
+                <button class="sort-option active" role="option" aria-selected="true" tabindex="0">Price: High → Low</button>
+                <button class="sort-option" role="option" aria-selected="false" tabindex="0">Name: A→Z</button>
+                <button class="sort-option" role="option" aria-selected="false" tabindex="0">Name: Z→A</button>
+                <button class="sort-option" role="option" aria-selected="false" tabindex="0">Newest Arrivals</button>
+                <button class="sort-option" role="option" aria-selected="false" tabindex="0">Vendor Name</button>
+              </div>
+              <span id="productCountBadgeMain" class="prod-count-badge" aria-live="polite">0 Products</span>
+            </div>
+            <span id="cartCountBadge" class="prod-count-badge" aria-live="polite" title="Cart item count">0</span>
+            <button id="darkModeToggle" aria-label="Switch to dark mode">🌙</button>
+          </div>
+        </div>
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsWrapper" role="grid" aria-live="polite"></div>
+        <!-- No Results Message -->
+        <div id="noResultsMsg" aria-live="polite">
+          No products found matching your criteria.
+        </div>
+        <!-- Recently Viewed Products -->
+        <div id="recentlyViewedContainer" class="recently-viewed-container" style="display:none;">
+          <h2>Recently Viewed</h2>
+          <div id="recentlyViewedProducts" class="products-grid"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Global Loader -->
+  <div class="global-loader hidden" aria-hidden="true">
+    <div class="loader-content" role="status">
+      <div class="loader-spinner" aria-hidden="true"></div>
+      <div>Loading...</div>
+    </div>
+  </div>
+  <!-- Toasts -->
+  <div class="toast-container" aria-live="polite" aria-atomic="true"></div>
+  <!-- Error Banner -->
+  <div id="error-banner" class="error-banner" role="alert" aria-live="assertive"></div>
+  <!-- Thumbnail Modal -->
+  <div class="thumbnail-modal" id="thumbnailModal" style="display:none;" role="dialog" aria-modal="true" aria-label="Product image preview">
+    <div class="thumbnail-modal-content">
+      <span class="close-modal" id="closeModal" tabindex="0" aria-label="Close preview" role="button">&times;</span>
+      <img id="modalImage" src="" alt="Product image preview">
+    </div>
+  </div>
+  <!-- Offline indicator element -->
+  <div class="offline-indicator" id="offlineIndicator">
+    You are offline. Some features may be limited.
+  </div>
+  <!-- App version footer -->
+  <footer class="app-footer">
+    <div class="container">
+      <p>Version 1.2.0 | Last updated: 2025-05-05 | User: Hossamgelil</p>
+      <p><a href="#" id="offlineToggle">Enable Offline Mode</a> | <a href="#" id="clearStorageBtn">Clear Local Storage</a></p>
+    </div>
+  </footer>
+  <!-- Service worker registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js')
+          .then(reg => console.log('Service worker registered'))
+          .catch(err => console.log('Service worker registration failed', err));
+      });
+    }
+  </script>
+  <!-- Main app script -->
+  <script src="app.js" defer></script>
+</body>
+</html>
